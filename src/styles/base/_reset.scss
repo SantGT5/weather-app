@@ -1,0 +1,25 @@
+@use '../abstracts/colors' as *;
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: $background;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.icon-pointer {
+  cursor: pointer;
+}
+
+.wrapper_app {
+  width: min(100% - 30px, 840px);
+  margin-top: 20px;
+  margin-inline: auto;
+}
