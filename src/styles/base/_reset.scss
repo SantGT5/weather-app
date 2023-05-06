@@ -1,4 +1,5 @@
 @use '../abstracts/colors' as *;
+@use '../abstracts/fonts' as *;
 
 body {
   margin: 0;
@@ -14,12 +15,45 @@ body {
   padding: 0;
 }
 
+.wght_300 {
+  font-weight: $wght_300;
+}
+
+.wght_400 {
+  font-weight: $wght_400;
+}
+
+.wght_700 {
+  font-weight: $wght_700;
+}
+
+.font_size_60 {
+  font-size: $size_60;
+}
+
+.font_size_20 {
+  font-size: $size_20;
+}
+
+.flex {
+  display: flex;
+}
+
+.center {
+  align-items: center;
+}
+
 .icon-pointer {
   cursor: pointer;
+}
+
+.gap_10 {
+  gap: 10px;
 }
 
 .wrapper_app {
   width: min(100% - 30px, 840px);
   margin-top: 20px;
   margin-inline: auto;
+  font-family: $font_family;
 }

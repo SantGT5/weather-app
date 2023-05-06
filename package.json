@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "preview": "vite preview",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "prettier:fix": "prettier --write './src/**/*'",
-    "prettier:check": "prettier --check './src/**/*' --debug-check",
-    "preview": "vite preview"
+    "prettier:check": "prettier --check './src/**/*' --debug-check"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
@@ -18,6 +18,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
     "react-redux": "^8.0.5",
+    "react-router-dom": "^6.11.1",
     "sass": "^1.62.1"
   },
   "devDependencies": {
