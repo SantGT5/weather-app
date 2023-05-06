@@ -1,3 +1,4 @@
 import { SideNav } from './SideNav/SideNav'
+import { Weather } from './Weather/Weather'
 
-export { SideNav }
+export { SideNav, Weather }
