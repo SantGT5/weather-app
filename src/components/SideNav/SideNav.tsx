@@ -10,6 +10,8 @@ import type { AppDispatch } from '../../redux/reduxStore'
 import { useDispatch } from 'react-redux'
 import { setLocation } from '../../redux/slices'
 
+import Swal from 'sweetalert2'
+
 export const SideNav = (): JSX.Element => {
   const [loading, setLoading] = React.useState<boolean>(false)
   const dispatch: AppDispatch = useDispatch()
@@ -33,9 +35,12 @@ export const SideNav = (): JSX.Element => {
         setLoading(false)
       },
       (error) => {
-        console.error(error)
         dispatch(setLocation({ latitude: 0, longitude: 0 }))
         setLoading(false)
+        Swal.fire({
+          icon: 'error',
+          title: error.message,
+        })
       }
     )
   }
@@ -71,7 +76,7 @@ export const SideNav = (): JSX.Element => {
             onClick={getUserLocation}
             className="transparent wght_700 font_size_15"
           >
-            Get your location
+            Get my location
           </button>
         )}
       </div>
