@@ -1,0 +1,21 @@
+.wrapper-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  .spinner {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 5px solid #e3d2d2;
+    border-top-color: #333;
+    animation: spinner 0.8s linear infinite;
+  }
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,14 +1,17 @@
 import './SideNav.style.scss'
 import React from 'react'
 
+import { Loader } from '../index'
+
 import { IoClose, IoMenu } from 'react-icons/io5'
 
+// Redux
 import type { AppDispatch } from '../../redux/reduxStore'
-
 import { useDispatch } from 'react-redux'
 import { setLocation } from '../../redux/slices'
 
 export const SideNav = (): JSX.Element => {
+  const [loading, setLoading] = React.useState<boolean>(false)
   const dispatch: AppDispatch = useDispatch()
   const sideNavRef = React.useRef<HTMLDivElement | null>(null)
 
@@ -21,15 +24,18 @@ export const SideNav = (): JSX.Element => {
   }
 
   const getUserLocation = (): void => {
+    setLoading(true)
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords
 
         dispatch(setLocation({ latitude, longitude }))
+        setLoading(false)
       },
       (error) => {
         console.error(error)
         dispatch(setLocation({ latitude: 0, longitude: 0 }))
+        setLoading(false)
       }
     )
   }
@@ -57,12 +63,17 @@ export const SideNav = (): JSX.Element => {
           size={36}
           onClick={() => sideNavHandler('250px')}
         />
-        <button
-          onClick={getUserLocation}
-          className="transparent wght_700 font_size_15"
-        >
-          Get your location
-        </button>
+
+        {loading ? (
+          <Loader />
+        ) : (
+          <button
+            onClick={getUserLocation}
+            className="transparent wght_700 font_size_15"
+          >
+            Get your location
+          </button>
+        )}
       </div>
     </>
   )
