@@ -1,3 +1,3 @@
-import { UseRequestApi } from './useRequestApi/useRequestApi'
+import { useRequestApi } from './useRequestApi/useRequestApi'
 
-export { UseRequestApi }
+export { useRequestApi }

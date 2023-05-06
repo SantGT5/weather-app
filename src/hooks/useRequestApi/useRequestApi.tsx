@@ -4,7 +4,7 @@ import type { ResponseType } from './type'
 import React from 'react'
 import { api } from '../../axios'
 
-export const UseRequestApi = (query: string) => {
+export const useRequestApi = (query: string) => {
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [errorHandler, setErrorHandler] = React.useState<string | null>()
   const [responseData, setResponseData] = React.useState<ResponseType | null>()

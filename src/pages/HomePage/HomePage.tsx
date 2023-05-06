@@ -2,13 +2,29 @@ import './HomePage.style.scss'
 
 import React from 'react'
 
-import { UseRequestApi } from '../../hooks'
+import { useRequestApi } from '../../hooks'
 import { Weather } from '../../components'
 
+import type { RootState } from '../../redux/reduxStore'
+import { useSelector } from 'react-redux'
+
+const baseURL = (lat?: number, long?: number): string => {
+  if (!lat || !long) {
+    return `/weather?q=Amsterdam&units=metric&appid=4fc689c1b5fac243121203a6445d5082`
+  }
+
+  return `/weather?lat=${lat}&lon=${long}&units=metric&appid=4fc689c1b5fac243121203a6445d5082`
+}
+
 export const HomePage = (): JSX.Element => {
-  const { _getResponse, errorHandler, isLoading, responseData } = UseRequestApi(
-    `/weather?q=Arnhem&units=metric&appid=4fc689c1b5fac243121203a6445d5082`
+  const { latitude, longitude } = useSelector(
+    (state: RootState) => state.locationSlice
   )
+
+  const URL = baseURL(latitude, longitude)
+
+  const { _getResponse, errorHandler, isLoading, responseData } =
+    useRequestApi(URL)
 
   React.useEffect(() => {
     const fetch = async () => await _getResponse()
