@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 
 import { SideNav } from './components'
 
-import { HomePage } from './pages'
+import { HomePage, LocationPage } from './pages'
 
 export const App = () => {
   return (
@@ -11,6 +11,7 @@ export const App = () => {
         <SideNav />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/location/:city" element={<LocationPage />} />
           <Route path="*" element={<HomePage />} />
         </Routes>
       </div>

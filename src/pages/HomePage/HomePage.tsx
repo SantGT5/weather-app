@@ -1,22 +1,20 @@
 import './HomePage.style.scss'
 
+import { useNavigate } from 'react-router-dom'
 import React from 'react'
 
+import { baseURL } from './helper-func'
 import { useRequestApi } from '../../hooks'
-import { Weather } from '../../components'
+import { Weather, Input } from '../../components'
 
+// redux
 import type { RootState } from '../../redux/reduxStore'
 import { useSelector } from 'react-redux'
 
-const baseURL = (lat?: number, long?: number): string => {
-  if (!lat || !long) {
-    return `/weather?q=Amsterdam&units=metric&appid=4fc689c1b5fac243121203a6445d5082`
-  }
-
-  return `/weather?lat=${lat}&lon=${long}&units=metric&appid=4fc689c1b5fac243121203a6445d5082`
-}
-
 export const HomePage = (): JSX.Element => {
+  const navigate = useNavigate()
+  const [{ searchInput }, setSearchInput] = React.useState({ searchInput: '' })
+
   const { latitude, longitude } = useSelector(
     (state: RootState) => state.locationSlice
   )
@@ -31,19 +29,39 @@ export const HomePage = (): JSX.Element => {
     fetch()
   }, [_getResponse])
 
+  const changeHandler = (evt: React.SyntheticEvent) => {
+    const { value, name } = evt.currentTarget as HTMLInputElement
+
+    setSearchInput((current) => {
+      return { ...current, [name]: value }
+    })
+  }
+
+  const submitHandler = (evt: React.SyntheticEvent) => {
+    evt.preventDefault()
+
+    if (searchInput === '' || !searchInput) return
+
+    navigate(`/location/${searchInput}`, { state: { city: searchInput } })
+  }
+
   return (
-    <div className="wrapper-home">
-      {!isLoading && responseData ? (
-        <Weather
-          temp={responseData.main.temp}
-          temp_max={responseData.main.temp_max}
-          temp_min={responseData.main.temp_min}
-          weather_main={responseData.weather[0].main}
-          location_name={responseData.name}
-        />
-      ) : (
-        <>{errorHandler}</>
-      )}
-    </div>
+    <form onSubmit={submitHandler} className="wrapper-home">
+      <Input onChange={changeHandler} name="searchInput" />
+      <button type="submit">Search</button>
+      <>
+        {!isLoading && !errorHandler && responseData ? (
+          <Weather
+            temp={responseData.main.temp}
+            temp_max={responseData.main.temp_max}
+            temp_min={responseData.main.temp_min}
+            weather_main={responseData.weather[0].main}
+            location_name={responseData.name}
+          />
+        ) : (
+          <>{errorHandler}</>
+        )}
+      </>
+    </form>
   )
 }

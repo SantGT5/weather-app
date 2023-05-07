@@ -1,4 +1,6 @@
 import './SideNav.style.scss'
+
+import { useLocation } from 'react-router-dom'
 import React from 'react'
 
 import { Loader } from '../index'
@@ -15,6 +17,7 @@ import Swal from 'sweetalert2'
 export const SideNav = (): JSX.Element => {
   const [loading, setLoading] = React.useState<boolean>(false)
   const dispatch: AppDispatch = useDispatch()
+  const location = useLocation()
   const sideNavRef = React.useRef<HTMLDivElement | null>(null)
 
   const sideNavHandler = (widthSize: string): void => {
@@ -71,13 +74,15 @@ export const SideNav = (): JSX.Element => {
 
         {loading ? (
           <Loader />
-        ) : (
+        ) : !location.state?.city ? (
           <button
             onClick={getUserLocation}
             className="transparent wght_700 font_size_15"
           >
             Get my location
           </button>
+        ) : (
+          <></>
         )}
       </div>
     </>
