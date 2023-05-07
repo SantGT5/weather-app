@@ -1,7 +1,11 @@
 import './Weather.style.scss'
 
+import React from 'react'
+
 import { IoCloudOutline, IoLocationSharp } from 'react-icons/io5'
 import { WeatherType } from './type'
+
+import { Map } from '../index'
 
 export const Weather = ({
   temp,
@@ -9,6 +13,9 @@ export const Weather = ({
   temp_min,
   weather_main,
   location_name,
+  icon,
+  lat,
+  lon,
 }: WeatherType): JSX.Element => {
   const weatherFormatter = (weather: number): string => {
     return ('0' + weather.toFixed(0)).slice(-2)
@@ -27,11 +34,15 @@ export const Weather = ({
             </div>
           </div>
         </div>
-        <IoCloudOutline size={70} style={{ minWidth: '70px' }} />
+        <img
+          src={`http://openweathermap.org/img/w/${icon}.png`}
+          alt="weather icon"
+        />
       </div>
       <div className="location font_size_20 wght_700 flex center">
         {location_name} <IoLocationSharp size={15} />
       </div>
+      <Map lat={lat} lon={lon} />
     </div>
   )
 }

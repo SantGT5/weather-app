@@ -57,6 +57,9 @@ export const HomePage = (): JSX.Element => {
             temp_min={responseData.main.temp_min}
             weather_main={responseData.weather[0].main}
             location_name={responseData.name}
+            lat={responseData.coord.lat}
+            lon={responseData.coord.lon}
+            icon={responseData.weather[0].icon}
           />
         ) : (
           <>{errorHandler}</>
