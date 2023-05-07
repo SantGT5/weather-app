@@ -1,7 +1,7 @@
 
 # Weather App
 ## First view
-<img width="373" alt="Screenshot 2023-05-07 at 21 09 21" src="https://user-images.githubusercontent.com/83282533/236697764-623139b5-5f6d-43cd-ae80-3ce4cd8d0e88.png">
+<img width="500" alt="Screenshot 2023-05-07 at 23 24 14" src="https://user-images.githubusercontent.com/83282533/236703239-a3047fc5-ed17-4bd3-8ac5-0ac15a02edd0.png">
 
 ### Project
 This is a simple weather application built using React v18 ([Vite](https://vitejs.dev/)) and Redux Toolkit to manage/persist state globally. It allows users to search for the weather of a specific location and add it to their favorites for quick access later.
