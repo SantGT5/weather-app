@@ -6,16 +6,17 @@ import storage from 'redux-persist/lib/storage'
 
 // reducers
 import locationSlice from './slices/LocationSlice/Location'
+import favoriteSlice from './slices/FavoriteSlice/Favorite'
 
 const persistConfig = {
   key: 'root',
   version: 1,
   // blacklist: ['locationSlice'], // Slices in this list wont be persisted
-  whitelist: ['locationSlice'], // Slices in this list will be persisted
+  whitelist: ['locationSlice', 'favoriteSlice'], // Slices in this list will be persisted
   storage,
 }
 
-const rootReducer = combineReducers({ locationSlice })
+const rootReducer = combineReducers({ locationSlice, favoriteSlice })
 const persisted = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({

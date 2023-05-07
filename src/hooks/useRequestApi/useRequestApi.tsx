@@ -16,7 +16,6 @@ export const useRequestApi = (query: string) => {
 
       setErrorHandler(null)
       setResponseData(data)
-      console.log(data)
     } catch (err) {
       setErrorHandler('Something went wrong.')
     } finally {

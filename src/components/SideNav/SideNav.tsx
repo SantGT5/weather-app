@@ -1,23 +1,26 @@
 import './SideNav.style.scss'
 
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import React from 'react'
 
 import { Loader } from '../index'
 
-import { IoClose, IoMenu } from 'react-icons/io5'
+import { IoClose, IoMenu, IoHomeOutline, IoStarOutline } from 'react-icons/io5'
 
 // Redux
-import type { AppDispatch } from '../../redux/reduxStore'
-import { useDispatch } from 'react-redux'
-import { setLocation } from '../../redux/slices'
+import type { AppDispatch, RootState } from '../../redux/reduxStore'
+import { useDispatch, useSelector } from 'react-redux'
+import { setLocation, setFavorite } from '../../redux/slices'
 
 import Swal from 'sweetalert2'
 
 export const SideNav = (): JSX.Element => {
+  const { favorite } = useSelector((state: RootState) => state.favoriteSlice)
+
   const [loading, setLoading] = React.useState<boolean>(false)
   const dispatch: AppDispatch = useDispatch()
   const location = useLocation()
+  const navigate = useNavigate()
   const sideNavRef = React.useRef<HTMLDivElement | null>(null)
 
   const sideNavHandler = (widthSize: string): void => {
@@ -48,6 +51,12 @@ export const SideNav = (): JSX.Element => {
     )
   }
 
+  const backHomeHandler = () => navigate('/')
+
+  const favoriteHandler = () => {
+    dispatch(setFavorite({ favorite: location.state.city }))
+  }
+
   return (
     <>
       <div ref={sideNavRef} className="wrapper-sidenav">
@@ -60,10 +69,19 @@ export const SideNav = (): JSX.Element => {
             />
           </span>
         </div>
-        <a href="#">About</a>
-        <a href="#">Services</a>
-        <a href="#">Clients</a>
-        <a href="#">Contact</a>
+        {favorite.map((elem, i) => {
+          return (
+            <Link
+              state={{ city: elem }}
+              to={`location/${elem}`}
+              className="transparent wght_700 font_size_15"
+              onClick={() => sideNavHandler('0px')}
+              key={i}
+            >
+              {elem}
+            </Link>
+          )
+        })}
       </div>
       <div className="menu-sidenav flex center">
         <IoMenu
@@ -82,7 +100,21 @@ export const SideNav = (): JSX.Element => {
             Get my location
           </button>
         ) : (
-          <></>
+          <div className="gap_10 flex">
+            <IoHomeOutline
+              className="icon-pointer"
+              size={36}
+              onClick={backHomeHandler}
+            />
+            <IoStarOutline
+              color={
+                favorite.includes(location.state.city) ? 'yellow' : 'black'
+              }
+              className="icon-pointer"
+              size={36}
+              onClick={favoriteHandler}
+            />
+          </div>
         )}
       </div>
     </>
