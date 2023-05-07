@@ -1,3 +1,4 @@
+import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import { SideNav } from './components'
@@ -9,11 +10,13 @@ export const App = () => {
     <div className="wrapper_app">
       <div className="wrapper_pages">
         <SideNav />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/location/:city" element={<LocationPage />} />
-          <Route path="*" element={<HomePage />} />
-        </Routes>
+        <React.Suspense fallback={<></>}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/location/:city" element={<LocationPage />} />
+            <Route path="*" element={<HomePage />} />
+          </Routes>
+        </React.Suspense>
       </div>
     </div>
   )
