@@ -1,8 +1,6 @@
 import './Weather.style.scss'
 
-import React from 'react'
-
-import { IoCloudOutline, IoLocationSharp } from 'react-icons/io5'
+import { IoLocationSharp } from 'react-icons/io5'
 import { WeatherType } from './type'
 
 import { Map } from '../index'
